@@ -27,4 +27,4 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <br/>
 <b>valid_token?</b> - checks whether given token is value.  Takes token as arg 1
 <br/>
-<b>oauth2_get_access_token<b/> - oauth2 authentication returning access token.  Takes username as arg 1, password as arg 2 
+<b>oauth2_get_access_token</b> - oauth2 authentication returning access token.  Takes username as arg 1, password as arg 2 
