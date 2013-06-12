@@ -23,7 +23,7 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <br/>
 <b>logout</b> - logs out user. Takes token as arg1
 <br/>
-<b>get_user_attributes</b> - returns user attributes for given token as arg 1
+<b>get_user_using_token</b> - returns user attributes for given token as arg 1
 <br/>
 <b>valid_token?</b> - checks whether given token is value.  Takes token as arg 1
 <br/>
@@ -33,4 +33,4 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <br/>
 <b>create_user</b> - creates user identity in optional realm.  Takes token of admin as arg 1, JSON payload arg 2 and optional realm as optional arg 3
 <br/>
-<b>get_user</b> - returns JSON of user object.  Takes token of admin as arg 1, uid arg 2, realm as optional arg 3
+<b>get_user_using_uid</b> - returns JSON of user object using uid.  Takes token of admin as arg 1, uid arg 2, realm as optional arg 3
