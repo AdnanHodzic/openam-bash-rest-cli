@@ -1,11 +1,12 @@
 OpenAM Shell REST Client
 ====================
 <br/>
-Basic set of Bash wrapper scripts that uses curl access the OpenAM (www.forgerock.com/openam) RESTful interface.
+Basic set of Bash wrapper scripts that use curl access the OpenAM (www.forgerock.com/openam) RESTful interface.
+<br/>
 <br/>
 Edit the settings file with server and port values for OpenAM instance.
 <br/>
-<b>Requirements<b>
+<b>Requirements</b>
 <br/>
 The scripts were tested with jq v1.2 (required for JSON prettifying), xmllint using libxml version 20708 (for XML prettifying) and curl v7.22.0. 
 <br/>
