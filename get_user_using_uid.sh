@@ -5,34 +5,24 @@
 #pull in settings file
 source settings
 
-#check that token of user with create entitlements is passed as an argument
+#check that uid is passed as an argument
 if [ "$1" = "" ]; then
-	echo ""	
-	echo "Token missing!  Requires token of user with create rights"
-	echo "Eg $0 AQIC5w...2NzEz* jdoe <optional_realm>"
-	echo ""
-	exit
-fi
-
-#check that data payload is passed as an argument
-if [ "$2" = "" ]; then
 	echo ""
 	echo "UID missing!"
-	echo "Eg $0 AQIC5w...2NzEz* jdoe <optional_realm>"
+	echo "Eg $0 jdoe <optional_realm>"
 	echo ""
+	echo "Also add admin authN token in settings"
 	exit
 fi
 
-DATA=$2
-
 #realm choice
-if [ "$3" = "" ]; then
+if [ "$2" = "" ]; then
 
-	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/users/$2"
+	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/users/$1"
 
 else
 
-	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/$3/users/$2"
+	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/$2/users/$1"
 fi
 
 #check that curl is present
@@ -53,7 +43,8 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
-curl --request GET --header "iplanetDirectoryPro: $1" $URL | jq .
+#ADMIN_TOKEN is set in settings
+curl --request GET --header "iplanetDirectoryPro: $ADMIN_TOKEN" $URL | jq .
 
 
 
