@@ -1,0 +1,15 @@
+#!/bin/bash
+#OpenAM Shell REST Client
+#sudo chmod 400 once set!
+
+#URL Protocol of OpenAM server. (HTTP or HTTPS)
+PROTOCOL=HTTP 
+
+#FQDN
+OPENAM_SERVER=openam.example.com 
+
+#Server Port. (8080)
+OPENAM_SERVER_PORT=8081
+
+#Returning data format. (xml or json)
+FORMAT=xml
