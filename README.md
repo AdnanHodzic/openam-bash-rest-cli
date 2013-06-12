@@ -36,3 +36,5 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <b>get_user_using_uid</b> - returns JSON of user object using uid.  Takes token of admin as arg 1, uid arg 2, realm as optional arg 3
 <br/>
 <b>update_user</b> - updates an existing user object with JSON payload of attributes.  Takes uid as arg 1, JSON payload arg 2 and realm as optional arg 3
+<br/>
+<b>delete_user</b> - deletes an existing user object.  Takes uid as arg 1
