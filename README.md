@@ -30,3 +30,7 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <b>oauth2_get_access_token</b> - oauth2 authentication returning access token.  Takes username as arg 1, password as arg 2 
 <br/>
 <b>oauth2_get_token_details</b> - oauth2 token details query.  Takes token as arg 1
+<br/>
+<b>create_user</b> - creates user identity in optional realm.  Takes token of admin as arg 1, JSON payload arg 2 and optional realm as optional arg 3
+<br/>
+<b>get_user</b> - returns JSON of user object.  Takes token of admin as arg 1, uid arg 2, realm as optional arg 3
