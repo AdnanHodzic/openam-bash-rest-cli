@@ -1,6 +1,7 @@
 #!/bin/bash
 #OpenAM shell REST client
 #Retrieves dashboard applications assigned to user
+#Add the user's OpenAM token in the settings file that you wish to query.  Retrieve the token using ./authentiate_username_password.sh
 
 #pull in settings file
 source settings
