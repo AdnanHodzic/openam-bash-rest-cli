@@ -50,3 +50,5 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <b>get_dashboard_applications_assigned</b> - retrieves a list of assigned dashboard applications
 <br/>
 <b>get_dashboard_applications_available</b> - retrieves a list of available dashboard applications for the user's realm
+<br/>
+<b>get_dashboard_applications_defined</b> - retrieves a list of defined dashboard applications
