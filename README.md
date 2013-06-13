@@ -40,4 +40,5 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <b>delete_user</b> - deletes an existing user object.  Takes uid as arg 1
 <br/>
 <b>create_realm</b> - creates a realm with given JSON payload as arg 1
-
+<br/>
+<b>get_realm</b> - retrieves single realm as given by arg 1
