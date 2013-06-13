@@ -37,7 +37,7 @@ if [ "$JQ_LOC" = "" ]; then
 fi
 
 #ADMIN_TOKEN set in settings
-curl --request POST --header "Content-Type: application/json" --header "iplanetDirectoryPro: $ADMIN_TOKEN" --data $DATA $URL | jq .
+curl --request POST --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
 
 
 

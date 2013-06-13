@@ -35,8 +35,8 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
-#ADMIN_TOKEN set in settings
-curl --header "iplanetDirectoryPro: $ADMIN_TOKEN" $URL | jq .
+#USER_AM_TOKEN set in settings
+curl --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
 
 
 

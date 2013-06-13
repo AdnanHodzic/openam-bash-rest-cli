@@ -55,7 +55,7 @@ echo "Updatead configuration realm: $1"
 echo "-----------------------------------------------------------------------------------"
 echo ""
 #ADMIN_TOKEN set in settings
-curl --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $ADMIN_TOKEN" --data $DATA $URL | jq .
+curl --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
 
 
 

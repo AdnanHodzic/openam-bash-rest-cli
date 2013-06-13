@@ -55,7 +55,7 @@ fi
 
 if [ "$1" != "" ] && [ "$2" != "" ]; then
 
-	#ADMIN_TOKEN from settings
+	#USER_AM_TOKEN from settings.
 	echo ""	
 	echo "Original User:"
 	echo "-------------------------------------------------------------------------------------------------------------"
@@ -66,7 +66,7 @@ if [ "$1" != "" ] && [ "$2" != "" ]; then
 	echo "Updated User:"
 	echo "-------------------------------------------------------------------------------------------------------------"
 	echo ""
-	curl --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $ADMIN_TOKEN" --data $DATA $URL | jq .
+	curl --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
 
 fi
 

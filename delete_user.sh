@@ -42,5 +42,5 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
-curl --request DELETE --header "iplanetDirectoryPro: $ADMIN_TOKEN" $URL | jq .
+curl --request DELETE --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
 
