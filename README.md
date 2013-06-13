@@ -46,3 +46,5 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <b>update_realm</b> - updates an existing realm.  Realm name as arg 1, JSON payload of updates arg 2
 <br/>
 <b>delete_realm</b> - deletes given realm
+<br/>
+<b>get_dashboard_applications_assigned</b> - retrieves a list of assigned dashboard applications
