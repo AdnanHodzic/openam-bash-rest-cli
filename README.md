@@ -17,6 +17,8 @@ Note these are my tools and in no way officially supported by Forgerock. They ar
 <br/>
 <b>CONTENTS</b>
 <br/>
+<b>interactive</b> - an interactive CLI to access all scripts
+<br/>
 <b>authenticate_username_password</b> - authenticates user and returns token id.  Takes username as arg1, password as arg2
 <br/>
 <b>authorized?</b> - checks whether user is authorized against URI.  Takes URI as arg 1, token as arg2.
