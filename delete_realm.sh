@@ -35,5 +35,18 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
+
+#check to see if .key exists from ./interactive.sh mode
+if [ -e ".token" ]; then
+		
+	USER_AM_TOKEN=$(cat .token | cut -d "\"" -f 2) #remove start and end quotes
+
+else
+
+	echo "Token file not found.  Create using ./authenticate_username_password.sh or use ./interactive.sh mode"
+	exit
+fi
+
+
 curl --request DELETE --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
 
