@@ -26,7 +26,7 @@ function menu() {
 	echo "4: Delete User"
 	echo "5: Update User"	
 	echo "6: Create Realm"
-	echo "7: Update Realm"
+	echo "7: Read Realm"
 	echo "8: Delete Realm"
 	echo "X: Exit"
 	echo ""
@@ -61,11 +61,11 @@ function menu() {
 			;;
 
 		7)
-			#update_realm
+			get_realm
 			;;
 	
 		8)
-			#delete_realmn
+			delete_realm
 			;;
 		
 		
@@ -80,6 +80,37 @@ function menu() {
 			menu
 			;;
 	esac
+
+}
+
+
+#calls get_realm.sh
+function get_realm() {
+
+	clear
+	echo "Enter the name of the realm to read: Eg myRealm"
+	read realm
+	echo ""
+	./get_realm.sh $realm
+	echo ""
+	read -p "Press [Enter] to return to menu"
+	menu
+
+}
+
+
+#calls delete_realm.sh
+function delete_realm() {
+
+	clear
+	echo "Enter the name of the realm to delete: Eg myRealm"
+	read realm
+	echo ""
+	./delete_realm.sh $realm
+
+	echo ""
+	read -p "Press [Enter] to return to menu"
+	menu
 
 }
 
