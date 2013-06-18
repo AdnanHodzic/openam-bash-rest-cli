@@ -25,9 +25,10 @@ function menu() {
 	echo "3: Create User"		
 	echo "4: Delete User"
 	echo "5: Update User"	
-	echo "6: Create Realm"
-	echo "7: Read Realm"
-	echo "8: Delete Realm"
+	echo "6: Read User"
+	echo "7: Create Realm"
+	echo "8: Read Realm"
+	echo "9: Delete Realm"
 	echo "X: Exit"
 	echo ""
 	echo "-----------------------------------------------------"
@@ -57,14 +58,18 @@ function menu() {
 			;;
 
 		6)
-			create_realm
+			get_user_using_uid
 			;;
 
 		7)
+			create_realm
+			;;
+
+		8)
 			get_realm
 			;;
 	
-		8)
+		9)
 			delete_realm
 			;;
 		
@@ -80,6 +85,20 @@ function menu() {
 			menu
 			;;
 	esac
+
+}
+
+#calls get_user_using_uid.sh
+function get_user_using_uid() {
+
+	clear
+	echo "Enter uid of user to read: Eg jdoe"
+	read uid
+	echo ""
+	./get_user_using_uid.sh $uid
+	echo ""
+	read -p "Press [Enter] to return to menu"
+	menu
 
 }
 
