@@ -53,23 +53,16 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
-#Check to see where ADMIN_TOKEN is set in properties file
-if [ "$USER_AM_TOKEN" = "" ]; then
-
-
-	#check to see if .key exists from ./interactive.sh mode
-	if [ -e ".token" ]; then
+#check to see if .key exists from ./interactive.sh mode
+if [ -e ".token" ]; then
 		
-		USER_AM_TOKEN=$(cat .token | cut -d "\"" -f 2) #remove start and end quotes
+	USER_AM_TOKEN=$(cat .token | cut -d "\"" -f 2) #remove start and end quotes
 
-	else
+else
 
-		echo "Token not found in settings file or .token file.  Use ./interactive.sh or add to settings file"
-		exit
-	fi
-
+	echo "Token file not found.  Create using ./authenticate_username_password.sh or use ./interactive.sh mode"
+	exit
 fi
-
 
 if [ "$1" != "" ] && [ "$2" != "" ]; then
 
