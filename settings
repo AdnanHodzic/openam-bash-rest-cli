@@ -14,6 +14,3 @@ OPENAM_SERVER_PORT=8081
 #Returning data format. (xml or json)
 FORMAT=json
 
-#amadmin or normal user OpenAM authentication token.  Required when running user create/read/delete scripts etc or pulling attributes back.  Retrieve using ./authenticate_user_password.sh
-USER_AM_TOKEN=AQIC5wM2LY4SfcxDtTYL7MNJ9UK00VKmpKbb0yWn0UNJ9zo.*AAJTSQACMDEAAlNLABMzMzMzNjE0MzIwNTc1NTg4NDMy*
-
