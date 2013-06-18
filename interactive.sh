@@ -3,7 +3,7 @@
 #Optional interactive front end for using the combined script list
 
 #read version - currently the commit count on the github branch
-VERSION=$(git rev-list --all | wc -l) #need to make this machine indepedent for those without git
+VERSION=$(cat VERSION)
 
 #check that jq is installed
 JQ_LOC=$(which jq)
@@ -20,16 +20,19 @@ function menu() {
 	echo "OpenAM Shell REST Client - interactive mode [ver:$VERSION]"
 	echo "-----------------------------------------------------"
 	echo ""
-	echo "1: Authenticate Using Username & Password (token saved for future session use)"
-	echo "2: Check current token is valid"
-	echo "3: Create User"		
-	echo "4: Delete User"
-	echo "5: Update User"	
-	echo "6: Read User"
-	echo "7: Create Realm"
-	echo "8: Read Realm"
-	echo "9: Delete Realm"
-	echo "X: Exit"
+	echo "1:  Get Authentication Token (token saved for future session use)"
+	echo "2:  Check current token is valid"
+	echo "3:  Create User"		
+	echo "4:  Delete User"
+	echo "5:  Update User"	
+	echo "6:  Read User"
+	echo "7:  Create Realm"
+	echo "8:  Read Realm"
+	echo "9:  Delete Realm"
+	echo "10: Get Dashboard Applications Assigned"
+	echo "11: Get Dashboard Applications Available"
+	echo "12: Get Dashboard Applications Defined"
+	echo "X:  Exit"
 	echo ""
 	echo "-----------------------------------------------------"
 	echo "Select an option:"
@@ -73,7 +76,18 @@ function menu() {
 			delete_realm
 			;;
 		
-		
+		10)
+			get_dashboard_applications_assigned
+			;;
+
+		11)
+			get_dashboard_applications_available
+			;;
+
+		12)
+			get_dashboard_applications_defined
+			;;
+
 		[x] | [X])
 				clear	
 				echo "Byeeeeeeeeeeeeeeeeeee :)"
@@ -85,6 +99,40 @@ function menu() {
 			menu
 			;;
 	esac
+
+}
+
+#calls get_dashboard_applications_defined.sh
+function get_dashboard_applications_defined() {
+
+	clear
+	./get_dashboard_applications_defined.sh
+	echo ""
+	read -p "Press [Enter] to return to menu"
+	menu
+
+}
+
+
+#calls get_dashboard_applications_available.sh
+function get_dashboard_applications_available() {
+
+	clear
+	./get_dashboard_applications_available.sh
+	echo ""
+	read -p "Press [Enter] to return to menu"
+	menu
+
+}
+
+#calls get_dashboard_applications_assigned.sh
+function get_dashboard_applications_assigned() {
+
+	clear
+	./get_dashboard_applications_assigned.sh
+	echo ""
+	read -p "Press [Enter] to return to menu"
+	menu
 
 }
 
