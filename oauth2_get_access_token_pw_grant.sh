@@ -8,10 +8,6 @@ source settings
 #pull in url_encoder
 source url_encoder.sh
 
-URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/oauth2/access_token"
-#DATA="grant_type=password&username=$1&password=$2&scope=cn%20mail"
-DATA="grant_type=password&username=$1&password=$2&scope=id"
-
 #check that username is passed as an argument
 if [ "$1" = "" ]; then
 	echo ""
@@ -44,6 +40,16 @@ if [ "$4" = "" ]; then
 	exit
 fi
 
+#check that scope as an argument
+if [ "$5" = "" ]; then
+	echo ""
+	echo "Scope missing!"
+	echo "Eg $0 username password clientID clientPassword cn%20mail"
+	echo "Eg $0 username password clientID clientPassword uid"
+	echo ""
+	exit
+fi
+
 
 #check that curl is present
 CURL_LOC="$(which curl)"
@@ -63,6 +69,18 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
-curl --request POST --user "$3:$4" --data $DATA $URL  | jq .
+USERNAME=$1
+PASSWORD=$2
+CLIENT=$3
+CLIENT_PASSWORD=$4
+SCOPE=$5
+
+#DATA="grant_type=password&username=$1&password=$2&scope=uid"
+
+DATA="grant_type=password&username=$USERNAME&password=$PASSWORD&scope=$SCOPE"
+
+URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/oauth2/access_token"
+
+curl --request POST --user "$CLIENT:$CLIENT_PASSWORD" --data $DATA $URL  | jq .
 
 
