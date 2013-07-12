@@ -9,7 +9,8 @@ source settings
 source url_encoder.sh
 
 URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/oauth2/access_token"
-DATA="grant_type=password&username=$1&password=$2&scope=cn%20mail"
+#DATA="grant_type=password&username=$1&password=$2&scope=cn%20mail"
+DATA="grant_type=password&username=$1&password=$2&scope=id"
 
 #check that username is passed as an argument
 if [ "$1" = "" ]; then
