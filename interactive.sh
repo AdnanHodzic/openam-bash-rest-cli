@@ -2,9 +2,6 @@
 #OpenAM shell REST client
 #Optional interactive front end for using the combined script list
 
-#read version - currently the commit count on the github branch
-VERSION=$(cat VERSION)
-
 #check that jq is installed
 JQ_LOC=$(which jq)
 if [ $JQ_LOC = "" ]; then
@@ -17,24 +14,38 @@ fi
 function menu() { 
 	
 	clear
-	echo "OpenAM Shell REST Client - interactive mode [ver:$VERSION]"
-	echo "-----------------------------------------------------"
-	echo ""
-	echo "1:  Get Authentication Token (token saved for future session use)"
+	echo "OpenAM Shell REST Client - interactive mode"
+	echo "----------------------------------------------------------------------------------"
+	echo "1:  Get OpenAM Authentication Token (token saved for future session use)"
 	echo "2:  Check current token is valid"
+	echo ""	
+	echo "Users:"
+	echo "------"
 	echo "3:  Create User"		
 	echo "4:  Delete User"
 	echo "5:  Update User"	
 	echo "6:  Read User"
+	echo ""
+	echo "Realms:"
+	echo "-------"
 	echo "7:  Create Realm"
 	echo "8:  Read Realm"
 	echo "9:  Delete Realm"
+	echo ""
+	echo "Dashboards:"
+	echo "-----------"
 	echo "10: Get Dashboard Applications Assigned"
 	echo "11: Get Dashboard Applications Available"
 	echo "12: Get Dashboard Applications Defined"
+	echo ""
+	echo "OAuth2:"
+	echo "-------"
+	echo "13: Get OAuth2 Access Token (Password Grant)"
+	echo "14: Get OAuth2 Access Token Details"
+	echo ""
 	echo "X:  Exit"
 	echo ""
-	echo "-----------------------------------------------------"
+	echo "----------------------------------------------------------------------------------"
 	echo "Select an option:"
 	read option
 
@@ -88,6 +99,14 @@ function menu() {
 			get_dashboard_applications_defined
 			;;
 
+		13)
+			oauth2_get_access_token_pw_grant
+			;;
+
+		14)
+			oauth2_get_token_details
+			;;
+
 		[x] | [X])
 				clear	
 				echo "Byeeeeeeeeeeeeeeeeeee :)"
@@ -101,6 +120,82 @@ function menu() {
 	esac
 
 }
+
+#calls oauth2_get_token_details
+function oauth2_get_token_details() {
+
+	clear
+	if [ -f '.access_token' ]; then
+
+		ACCESS_TOKEN=$(cat .access_token | cut -d "\"" -f 2)
+		./oauth2_get_token_details.sh $ACCESS_TOKEN	
+		echo ""
+		read -p "Press [Enter] to return to menu"
+		menu	
+	
+	else
+
+		echo "Access token file .access_token not found!  Get OAuth2 access token first then try again."
+		echo ""
+		read -p "Press [Enter] to return to menu"
+		menu
+	
+	fi
+
+
+}
+
+#calls oauth2_get_access_token_pw_grant
+function oauth2_get_access_token_pw_grant() {
+
+	clear
+	#clear down previous token files
+	rm -f .access_token
+	rm -f .refresh_token
+	rm -f .oauth2_response.json
+
+	#get user input
+	echo "Enter username:"
+	read username
+	echo ""
+	echo "Enter user password:"
+	read -s password
+	echo ""
+	echo "Enter OAuth2 client ID:"
+	read client_id
+	echo ""
+	echo "Enter OAuth2 client Password:"
+	read -s client_password
+	echo ""
+	echo "Enter scope:"
+	read scope
+	echo ""
+
+	./oauth2_get_access_token_pw_grant.sh $username $password $client_id $client_password $scope > .oauth2_response.json
+	chmod 400 .oauth2_response.json
+
+	#pull out responses from .oauth2_response.json
+	cat .oauth2_response.json | jq '.access_token' > .access_token
+	chmod 400 .access_token
+	cat .oauth2_response.json | jq '.refresh_token' > .refresh_token
+	chmod 400 .refresh_token
+
+	#pull in token vars
+	ACCESS_TOKEN=$(cat .access_token)
+	REFRESH_TOKEN=$(cat .refresh_token)
+	EXPIRES=$(cat .oauth2_response.json | jq '.expires_in')
+
+	#print back to screen
+	echo ""
+	echo "The following access token was returned: $ACCESS_TOKEN"
+	echo "The following refresh token was returned: $REFRESH_TOKEN"
+	echo "Expires in: $EXPIRES seconds"
+	echo ""
+	read -p "Press [Enter] to return to menu"
+	menu
+
+}
+
 
 #calls get_dashboard_applications_defined.sh
 function get_dashboard_applications_defined() {
@@ -155,7 +250,7 @@ function get_user_using_uid() {
 function get_realm() {
 
 	clear
-	echo "Enter the name of the realm to read: Eg myRealm"
+	echo "Enter the name of the realm to read: Eg myRealm (for Top Level Realm use sunamhiddenrealmdelegationservicepermissions"
 	read realm
 	echo ""
 	./get_realm.sh $realm
