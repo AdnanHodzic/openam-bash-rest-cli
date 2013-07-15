@@ -125,9 +125,10 @@ function menu() {
 function oauth2_get_token_details() {
 
 	clear
-	if [ -f '.access_token' ]; then
-
-		ACCESS_TOKEN=$(cat .access_token | cut -d "\"" -f 2)
+	if [ -f '.oauth2_access_token' ]; then
+		
+		#pull in access token details removing quotes
+		ACCESS_TOKEN=$(cat .oauth2_access_token | cut -d "\"" -f 2)
 		./oauth2_get_token_details.sh $ACCESS_TOKEN	
 		echo ""
 		read -p "Press [Enter] to return to menu"
@@ -135,7 +136,7 @@ function oauth2_get_token_details() {
 	
 	else
 
-		echo "Access token file .access_token not found!  Get OAuth2 access token first then try again."
+		echo "OAuth2 access token file!  Get OAuth2 access token first then try again."
 		echo ""
 		read -p "Press [Enter] to return to menu"
 		menu
@@ -175,14 +176,14 @@ function oauth2_get_access_token_pw_grant() {
 	chmod 400 .oauth2_response.json
 
 	#pull out responses from .oauth2_response.json
-	cat .oauth2_response.json | jq '.access_token' > .access_token
-	chmod 400 .access_token
-	cat .oauth2_response.json | jq '.refresh_token' > .refresh_token
-	chmod 400 .refresh_token
+	cat .oauth2_response.json | jq '.access_token' > .oauth2_access_token
+	chmod 400 .oauth2_access_token
+	cat .oauth2_response.json | jq '.refresh_token' > .oauth2_refresh_token
+	chmod 400 .oauth2_refresh_token
 
 	#pull in token vars
-	ACCESS_TOKEN=$(cat .access_token)
-	REFRESH_TOKEN=$(cat .refresh_token)
+	ACCESS_TOKEN=$(cat .oauth2_access_token)
+	REFRESH_TOKEN=$(cat .oauth2_refresh_token)
 	EXPIRES=$(cat .oauth2_response.json | jq '.expires_in')
 
 	#print back to screen
