@@ -151,8 +151,8 @@ function oauth2_get_access_token_pw_grant() {
 
 	clear
 	#clear down previous token files
-	rm -f .access_token
-	rm -f .refresh_token
+	rm -f .oauth2_access_token
+	rm -f .oauth2_refresh_token
 	rm -f .oauth2_response.json
 
 	#get user input
