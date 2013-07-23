@@ -81,6 +81,6 @@ DATA="grant_type=password&username=$USERNAME&password=$PASSWORD&scope=$SCOPE"
 
 URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/oauth2/access_token"
 
-curl --request POST --user "$CLIENT:$CLIENT_PASSWORD" --data $DATA $URL  | jq .
+curl -k --request POST --user "$CLIENT:$CLIENT_PASSWORD" --data $DATA $URL  | jq .
 
 

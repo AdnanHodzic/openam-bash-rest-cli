@@ -76,7 +76,7 @@ if [ "$1" != "" ] && [ "$2" != "" ]; then
 	echo "Updated User:"
 	echo "-------------------------------------------------------------------------------------------------------------"
 	echo ""
-	curl --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
+	curl -k --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
 
 fi
 

@@ -53,5 +53,5 @@ else
 	exit
 fi
 
-curl --request DELETE --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
+curl -k --request DELETE --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
 

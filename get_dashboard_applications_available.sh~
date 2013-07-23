@@ -1,21 +1,13 @@
 #!/bin/bash
 #OpenAM shell REST client
-#Deletes given realm
+#Retrieves dashboard applications available to the user's realm
+#Add the user's OpenAM token in the settings file that you wish to query.  Retrieve the token using ./authentiate_username_password.sh
 
 #pull in settings file
 source settings
 
-#check that uid is passed as an argument
-if [ "$1" = "" ]; then
-	echo ""
-	echo "Realm name missing!"
-	echo "Eg $0 myRealm"
-	echo ""
-	exit
-fi
+URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/dashboard/available"
 
-#construct URL from settings file
-URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/realms/$1"
 
 #check that curl is present
 CURL_LOC="$(which curl)"
@@ -35,7 +27,6 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
-
 #check to see if .key exists from ./interactive.sh mode
 if [ -e ".token" ]; then
 		
@@ -47,6 +38,8 @@ else
 	exit
 fi
 
+#USER_AM_TOKEN set in settings
+curl --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
 
-curl -k --request DELETE --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
+
 

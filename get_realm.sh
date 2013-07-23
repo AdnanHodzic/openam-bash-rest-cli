@@ -47,7 +47,7 @@ else
 fi
 
 #USER_AM_TOKEN set in settings
-curl --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
+curl -k --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
 
 
 

@@ -45,6 +45,16 @@ if [ "$JQ_LOC" = "" ]; then
   	exit
 fi
 
+#check to see if .key exists from ./interactive.sh mode
+if [ -e ".token" ]; then
+		
+	USER_AM_TOKEN=$(cat .token | cut -d "\"" -f 2) #remove start and end quotes
+
+else
+
+	echo "Token file not found.  Create using ./authenticate_username_password.sh or use ./interactive.sh mode"
+	exit
+fi
 
 echo ""
 echo "Original configuration for realm: $1"
@@ -55,7 +65,7 @@ echo "Updatead configuration realm: $1"
 echo "-----------------------------------------------------------------------------------"
 echo ""
 #ADMIN_TOKEN set in settings
-curl --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
+curl -k --request PUT --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
 
 
 

@@ -38,7 +38,7 @@ else
 	exit
 fi
 
-curl --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
+curl -k --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
 
 
 

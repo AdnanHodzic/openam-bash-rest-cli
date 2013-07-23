@@ -56,7 +56,7 @@ else
 fi
 
 #run curl
-curl --request POST --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
+curl -k --request POST --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
 
 
 
