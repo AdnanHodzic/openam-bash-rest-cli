@@ -17,6 +17,6 @@ fi
 
 URL=$1
 
-curl --request GET $URL
+curl -k --request GET $URL
 
 

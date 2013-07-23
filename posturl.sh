@@ -20,11 +20,11 @@ URL=$1
 #check that data is passed as an argument
 if [ "$2" = "" ]; then
 
-	curl --request POST $URL
+	curl -k --request POST $URL
 
 else
 	DATA="$2"
-	curl --request POST --data $DATA $URL
+	curl -k --request POST --data $DATA $URL
 
 fi
 
