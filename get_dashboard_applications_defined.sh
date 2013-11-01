@@ -6,7 +6,7 @@
 #pull in settings file
 source settings
 
-URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/dashboard/defined"
+URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/dashboard/defined?_prettyPrint=true"
 
 
 #check that curl is present
@@ -18,15 +18,6 @@ if [ "$CURL_LOC" = "" ]; then
 	exit
 fi
 
-#check that jq util is present
-JQ_LOC="$(which jq)"
-if [ "$JQ_LOC" = "" ]; then
-	echo ""
-   	echo "JSON parser jq not found.  Download from http://stedolan.github.com/jq/download/"
-	echo ""
-  	exit
-fi
-
 #USER_AM_TOKEN set#check to see if .key exists from ./interactive.sh mode
 if [ -e ".token" ]; then
 		
@@ -34,11 +25,11 @@ if [ -e ".token" ]; then
 
 else
 
-	echo "Token file not found.  Create using ./authenticate_username_password.sh or use ./interactive.sh mode"
+	echo "Token file not found.  Create using ./authn_user_pw_default.sh or use ./interactive.sh mode"
 	exit
 fi
 
-curl -k --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL | jq .
+curl -k --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL 
 
 
 

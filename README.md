@@ -1,56 +1,83 @@
-OpenAM Shell REST Client
-====================
+OpenAM v11 Shell REST Client
+============================
 <br/>
-Basic set of Bash wrapper scripts that use curl, to access the OpenAM (www.forgerock.com/openam) RESTful interface.
+A set of Bash wrapper scripts that use curl, to access the OpenAM (www.forgerock.com/openam) RESTful interface.  Note this package only works on v11 of OpenAM.
 <br/>
-Edit the settings file with server and port values for OpenAM instance.  For admin tasks generate an authentication token too.
 <br/>
+<b>To use, it's recommended to run ./interactive.sh for the menu driven front end.  Peforms token retrieval and storage for reuse.</b>
 <br/>
 <b>Requirements</b>
 <br/>
-The scripts were tested with jq v1.2 (required for JSON prettifying), xmllint using libxml version 20708 (for XML prettifying) and curl v7.22.0. 
+The scripts were tested with jq v1.2 (required for JSON prettifying), curl v7.22.0 and OpenAM v11
 <br/>
 Use as-is, no warranty implied. Leave this readme and any attribution in place. Simon Moffatt, 2013 
 <br/>
-Note these are my tools and in no way officially supported by Forgerock. They are publicly available as a community contribution.
+<br/>
+<b>Note these are my tools and in no way officially supported by Forgerock. They are publicly available as a community contribution.</b>
 <br/>
 <br/>
 <b>CONTENTS</b>
 <br/>
 <b>interactive</b> - an interactive CLI to access all scripts
 <br/>
-<b>authenticate_username_password</b> - authenticates user and returns token id.  Takes username as arg1, password as arg2
 <br/>
-<b>authorized?</b> - checks whether user is authorized against URI.  Takes URI as arg 1, token as arg2.
+<b>AUTHENTICATION</b>
+<b>authn_user_pw_default</b> - authenticates to top realm and default chain
 <br/>
-<b>logout</b> - logs out user. Takes token as arg1
+<b>authn_user_pw_any_realm_any_chain</b> - authenticates to any realm any service
 <br/>
-<b>get_user_using_token</b> - returns user attributes for given token as arg 1
+<b>authn_user_pw_any_realm_any_module</b> - authenticates to any realm any module
 <br/>
-<b>valid_token?</b> - checks whether given token is value.  Takes token as arg 1
+<b>log_out</b> - logs out current user
 <br/>
-<b>oauth2_get_access_token</b> - oauth2 authentication returning access token.  Takes username as arg 1, password as arg 2 
+<b>valid_token?</b> - checks if given token is valid
+<br>
+<b>get_user_using_token</b> - returns user attributes associated with given token
 <br/>
-<b>oauth2_get_token_details</b> - oauth2 token details query.  Takes token as arg 1
+<b>get_cookie_domain</b> - returns cookie domains
 <br/>
-<b>create_user</b> - creates user identity in optional realm.  Takes token of admin as arg 1, JSON payload arg 2 and optional realm as optional arg 3
 <br/>
-<b>get_user_using_uid</b> - returns JSON of user object using uid.  Takes token of admin as arg 1, uid arg 2, realm as optional arg 3
+<b>AGENTS</b>
 <br/>
-<b>update_user</b> - updates an existing user object with JSON payload of attributes.  Takes uid as arg 1, JSON payload arg 2 and realm as optional arg 3
+<b>get_agents</b> - returns all agents for given realm
 <br/>
-<b>delete_user</b> - deletes an existing user object.  Takes uid as arg 1
+<b>get_agent</b> - returns full attributes for given agent
 <br/>
-<b>create_realm</b> - creates a realm with given JSON payload as arg 1
+<b>create_agent</b> - creates agent with given JSON file payload
 <br/>
-<b>get_realm</b> - retrieves single realm as given by arg 1
+<b>delete_agent<b> - deletes given agent
 <br/>
-<b>update_realm</b> - updates an existing realm.  Realm name as arg 1, JSON payload of updates arg 2
+<b>update_agent</b> - updates given agent with values from JSON payload
+<br/>
+<br/>
+<b>REALMS</b>
+<br/>
+<b>get_realm</b> - returns details on given realm
+<br/>
+<b>update_realm</b> - updates given realm with values from JSON payload
+<br/>
+<b>create_realm</b> - creates realm with values from given JSON payload
 <br/>
 <b>delete_realm</b> - deletes given realm
 <br/>
-<b>get_dashboard_applications_assigned</b> - retrieves a list of assigned dashboard applications
 <br/>
-<b>get_dashboard_applications_available</b> - retrieves a list of available dashboard applications for the user's realm
+<b>OAUTH2</b>
 <br/>
-<b>get_dashboard_applications_defined</b> - retrieves a list of defined dashboard applications
+<b>oauth2_get_access_token_pw_grant</b> - returns access/refresh token for given user/pw combination for OAuth2 client, password and scope
+<br/>
+<b>oauth2_get_access_token_details</b> - returns token details
+<br/>
+<br/>
+<b>DASHBOARDS</b>
+<br/>
+<b>get_dashboard_applications_available</b> - returns dashboard apps available
+<br/>
+<b>get_dashboard_applications_assigned</b> - returns dashboard apps assigned
+<br/>
+<b>get_dashboard_applications_defined</b> - returns dashboard apps defined
+<br/>
+<br/>
+<b>TEMPLATES</b>
+<br/>
+Various JSON files that could be used to create/update objects.
+

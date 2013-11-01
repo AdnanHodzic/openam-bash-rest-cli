@@ -1,13 +1,28 @@
 #!/bin/bash
 #OpenAM shell REST client
-#Retrieves dashboard applications available to the user's realm
-#Add the user's OpenAM token in the settings file that you wish to query.  Retrieve the token using ./authentiate_username_password.sh
+#Deletes agent in either default or given realm
 
 #pull in settings file
 source settings
 
-URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/dashboard/available?_prettyPrint=true"
+#check that name is passed as an argument
+if [ "$1" = "" ]; then
+	echo ""
+	echo "Agent name missing!"
+	echo "Eg $0 myAgent <optional_realm>"
+	echo ""
+	exit
+fi
 
+#realm choice
+if [ "$2" = "" ]; then
+
+	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/agents/$1?_prettyPrint=true"
+
+else
+
+	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/$2/agents/$1?_prettyPrint=true"
+fi
 
 #check that curl is present
 CURL_LOC="$(which curl)"
@@ -17,6 +32,7 @@ if [ "$CURL_LOC" = "" ]; then
 	echo ""
 	exit
 fi
+
 
 #check to see if .key exists from ./interactive.sh mode
 if [ -e ".token" ]; then
@@ -29,8 +45,6 @@ else
 	exit
 fi
 
-#USER_AM_TOKEN set in settings
-curl -k --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL 
-
-
-
+echo ""
+curl -k --request DELETE --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL
+echo ""

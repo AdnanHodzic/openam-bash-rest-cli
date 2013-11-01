@@ -60,14 +60,6 @@ if [ "$CURL_LOC" = "" ]; then
 	exit
 fi
 
-#check that jq util is present
-JQ_LOC="$(which jq)"
-if [ "$JQ_LOC" = "" ]; then
-	echo ""
- 	echo "JSON parser jq not found.  Download from http://stedolan.github.com/jq/download/"
-	echo ""
-  	exit
-fi
 
 USERNAME=$1
 PASSWORD=$2
@@ -79,8 +71,15 @@ SCOPE=$5
 
 DATA="grant_type=password&username=$USERNAME&password=$PASSWORD&scope=$SCOPE"
 
-URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/oauth2/access_token"
+URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/oauth2/access_token?_prettyPrint=true"
 
-curl -k --request POST --user "$CLIENT:$CLIENT_PASSWORD" --data $DATA $URL  | jq .
+#check if realm was passed in to alter url
+if [ "$6" != "" ]; then
+	
+	URL="$URL&realm=$6"
+fi
 
+echo ""
+curl -k --request POST --user "$CLIENT:$CLIENT_PASSWORD" --data $DATA $URL | jq .
+echo ""
 

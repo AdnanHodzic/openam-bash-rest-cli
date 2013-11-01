@@ -1,19 +1,38 @@
 #!/bin/bash
-#OpenAM Shell REST Client
-#Wrapper for quickly calling curl to perform a GET against OpenAM
+#OpenAM shell REST client
+#Gets agent in either default or given realm
 
-#check that URL is passed as an argument
+#pull in settings file
+source settings
+
+#check that uid is passed as an argument
 if [ "$1" = "" ]; then
-	echo "Argument missing.  Requires URL"
+	echo ""
+	echo "Agent name missing!"
+	echo "Eg $0 myAgent <optional_realm>"
+	echo ""
 	exit
+fi
+
+#realm choice
+if [ "$2" = "" ]; then
+
+	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/agents/$1?_prettyPrint=true"
+
+else
+
+	URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/$2/agents/$1?_prettyPrint=true"
 fi
 
 #check that curl is present
 CURL_LOC="$(which curl)"
 if [ "$CURL_LOC" = "" ]; then
+	echo ""
 	echo "Curl not found.  Please install sudo apt-get install curl etc..."
+	echo ""
 	exit
 fi
+
 
 #check to see if .key exists from ./interactive.sh mode
 if [ -e ".token" ]; then
@@ -27,8 +46,9 @@ else
 fi
 
 echo ""
-
-URL=$1
 curl -k --request GET --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL
+echo ""
+echo ""
+
 
 

@@ -1,19 +1,21 @@
 #!/bin/bash
-#OpenAM Shell REST Client
-#Wrapper for quickly calling curl to perform a GET against OpenAM
+#OpenAM shell REST client
+#Returns cookie domains
 
-#check that URL is passed as an argument
-if [ "$1" = "" ]; then
-	echo "Argument missing.  Requires URL"
-	exit
-fi
+#pull in settings file
+source settings
+
+URL="$PROTOCOL://$OPENAM_SERVER:$OPENAM_SERVER_PORT/openam/json/serverinfo/cookieDomains?_prettyPrint=true"
 
 #check that curl is present
 CURL_LOC="$(which curl)"
 if [ "$CURL_LOC" = "" ]; then
+	echo ""
 	echo "Curl not found.  Please install sudo apt-get install curl etc..."
+	echo ""
 	exit
 fi
+
 
 #check to see if .key exists from ./interactive.sh mode
 if [ -e ".token" ]; then
@@ -22,13 +24,14 @@ if [ -e ".token" ]; then
 
 else
 
-	echo "Token not found in .token file.  Use ./interactive.sh or ./authn_user_pw_default.sh to create"
+	echo "Token not found in  file or .token file.  Use ./interactive.sh or ./authn_user_pw_default to create"
 	exit
 fi
 
 echo ""
-
-URL=$1
 curl -k --request GET --header "iplanetDirectoryPro: $USER_AM_TOKEN" $URL
+echo ""
+echo ""
+
 
 
