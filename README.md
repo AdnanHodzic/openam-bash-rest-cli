@@ -4,9 +4,10 @@ OpenAM v11 Shell REST Client
 A set of Bash wrapper scripts that use curl, to access the OpenAM (www.forgerock.com/openam) RESTful interface.  Note this package only works on v11 of OpenAM.
 <br/>
 <br/>
-<b>To use, it's recommended to run ./interactive.sh for the menu driven front end.  Peforms token retrieval and storage for reuse.</b>
+<b>To use, it's recommended to run ./interactive.sh for the menu driven front end.  Performs token retrieval and storage for reuse.</b>
 <br/>
 <b>Requirements</b>
+<br/>
 <br/>
 The scripts were tested with jq v1.2 (required for JSON prettifying), curl v7.22.0 and OpenAM v11
 <br/>
@@ -18,10 +19,11 @@ Use as-is, no warranty implied. Leave this readme and any attribution in place. 
 <br/>
 <b>CONTENTS</b>
 <br/>
-<b>interactive</b> - an interactive CLI to access all scripts
+<b>interactive</b> - an interactive menu driven CLI to access all scripts
 <br/>
 <br/>
 <b>AUTHENTICATION</b>
+<br/>
 <b>authn_user_pw_default</b> - authenticates to top realm and default chain
 <br/>
 <b>authn_user_pw_any_realm_any_chain</b> - authenticates to any realm any service
@@ -45,7 +47,7 @@ Use as-is, no warranty implied. Leave this readme and any attribution in place. 
 <br/>
 <b>create_agent</b> - creates agent with given JSON file payload
 <br/>
-<b>delete_agent<b> - deletes given agent
+<b>delete_agent</b> - deletes given agent
 <br/>
 <b>update_agent</b> - updates given agent with values from JSON payload
 <br/>
@@ -80,4 +82,5 @@ Use as-is, no warranty implied. Leave this readme and any attribution in place. 
 <b>TEMPLATES</b>
 <br/>
 Various JSON files that could be used to create/update objects.
+
 
