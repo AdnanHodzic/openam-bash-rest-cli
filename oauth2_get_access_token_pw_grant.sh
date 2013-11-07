@@ -79,7 +79,5 @@ if [ "$6" != "" ]; then
 	URL="$URL&realm=$6"
 fi
 
-echo ""
-curl -k --request POST --user "$CLIENT:$CLIENT_PASSWORD" --data $DATA $URL | jq .
-echo ""
-
+#call url and store access and refresh token and scope values
+curl -k --request POST --user "$CLIENT:$CLIENT_PASSWORD" --data $DATA $URL
