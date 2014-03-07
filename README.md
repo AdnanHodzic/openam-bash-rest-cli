@@ -40,6 +40,13 @@ Use as-is, no warranty implied. Leave this readme and any attribution in place. 
 <b>get_cookie_domain</b> - returns cookie domains
 <br/>
 <br/>
+<b>AUTHORIZATION</b>
+<br/>
+<b>get_policy_decision_current_user</b> - returns boolean response for given URL and previously stored session token.
+<br/>
+<b>get_policy_decision_any_user</b> - returns boolean response for given URL and given session token.  
+<br/>
+<br/>
 <b>AGENTS</b>
 <br/>
 <b>get_agents</b> - returns all agents for given realm
