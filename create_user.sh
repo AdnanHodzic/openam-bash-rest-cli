@@ -5,6 +5,9 @@
 #pull in settings file
 source settings
 
+# pull out email value from template_user.json
+user_email=$(grep "mail" template_user.json | awk '{print $2}' | cut -d "\"" -f 2)
+
 #check that data payload is passed as an argument
 if [ "$1" = "" ]; then
 	echo ""
@@ -58,5 +61,5 @@ fi
 #run curl
 curl -k --request POST --header "Content-Type: application/json" --header "iplanetDirectoryPro: $USER_AM_TOKEN" --data $DATA $URL | jq .
 
-
-
+# send email to user with credentials
+curl --request POST --header "Content-Type: application/json" --data '{ "email": "$user_email", "subject":"OpenAM account credentials", "message":"You will be forced to change temporary password" }' https://openam.login.com
